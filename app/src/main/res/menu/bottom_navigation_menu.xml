@@ -3,20 +3,20 @@
 
     <item
         android:id="@+id/chats_menu"
-        android:title="Чаты"
+        android:title="@string/chats_menu_title"
         android:icon="@drawable/chat_icon">
     </item>
 
     <item
         android:id="@+id/games_menu"
-        android:title="Игры"
+        android:title="@string/games_menu_title"
         android:icon="@drawable/games_icon">
     </item>
 
     <item
-        android:id="@+id/recommendatioin_menu"
-        android:title="Советы"
-        android:icon="@drawable/recommendatioins_icon">
+        android:id="@+id/recommendation_menu"
+        android:title="@string/recommendation_menu_title"
+        android:icon="@drawable/recommendations_icon">
     </item>
 
 

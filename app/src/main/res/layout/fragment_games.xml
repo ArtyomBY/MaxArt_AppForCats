@@ -8,18 +8,17 @@
     android:verticalScrollbarPosition="right">
 
     <!-- TODO: Update blank fragment layout -->
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#F0FFAD">
+        android:background="@color/games_fragment_background">
 
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Игры для котов"
-            android:textSize="35dp"
+            android:text="@string/games_fragment_title"
+            android:textSize="35sp"
             android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/games_list"
