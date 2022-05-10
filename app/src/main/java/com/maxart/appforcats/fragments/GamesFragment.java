@@ -17,12 +17,10 @@ import android.widget.TextView;
 import com.maxart.appforcats.MainActivity;
 import com.maxart.appforcats.R;
 
-import java.util.Objects;
-
 public class GamesFragment extends Fragment {
 
     ListView games_list;
-    String[] games = {"Стукни крота", "Поймай мышку", "Общение с виртуальными котами", "Видео животных со звуками"};
+    final String[] games = {"Стукни крота", "Поймай мышку", "Общение с виртуальными котами", "Видео животных со звуками"};
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,6 +46,10 @@ public class GamesFragment extends Fragment {
 
             convertView.setOnClickListener(v -> {
                 switch (((TextView)v).getText().toString()) {
+                    case "Стукни крота":
+                    case "Поймай мышку":
+                    case "Общение с виртуальными котами":
+                        break;
                     case "Видео животных со звуками":
                         MainActivity mainActivity = (MainActivity) GamesFragment.this.requireActivity();
                         mainActivity.replaceFragment(new VideosFragment());
