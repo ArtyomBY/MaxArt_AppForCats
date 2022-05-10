@@ -51,7 +51,7 @@ public class GamesFragment extends Fragment {
                     case "Общение с виртуальными котами":
                         break;
                     case "Видео животных со звуками":
-                        MainActivity mainActivity = (MainActivity) GamesFragment.this.requireActivity();
+                        MainActivity mainActivity = (MainActivity) requireActivity();
                         mainActivity.replaceFragment(new VideosFragment());
                         break;
                 }
