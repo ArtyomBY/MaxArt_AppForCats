@@ -45,13 +45,16 @@ public class GamesFragment extends Fragment {
             convertView = super.getView(position, convertView, parent);
 
             convertView.setOnClickListener(v -> {
+                MainActivity mainActivity = (MainActivity) requireActivity();
                 switch (((TextView)v).getText().toString()) {
                     case "Стукни крота":
+                        break;
                     case "Поймай мышку":
+                        break;
                     case "Общение с виртуальными котами":
+                        mainActivity.replaceFragment(new VirtualCatFragment());
                         break;
                     case "Видео животных со звуками":
-                        MainActivity mainActivity = (MainActivity) requireActivity();
                         mainActivity.replaceFragment(new VideosFragment());
                         break;
                 }
