@@ -5,9 +5,9 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.SeekBar;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +15,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class CatchTheMouseActivity extends AppCompatActivity {
+
+    public static final int MAX_SPEED = 100;
+    private static final int MAX_VOLUME = 100;
 
     Bitmap backgroundImage;
 
@@ -44,8 +47,17 @@ public class CatchTheMouseActivity extends AppCompatActivity {
                 }
         );
 
+        SeekBar speed = findViewById(R.id.mouse_speed);
+        speed.setMax(MAX_SPEED);
+        SeekBar volume = findViewById(R.id.volume);
+        volume.setMax(MAX_VOLUME);
+
         findViewById(R.id.start_button).setOnClickListener(v -> {
-            setContentView(new CatchTheMouseGameView(this));
+            setContentView(new CatchTheMouseGameView(
+                    this,
+                    Math.max(1, speed.getProgress()),
+                    volume.getProgress() / (float)MAX_VOLUME
+            ));
             startGame();
         });
     }
