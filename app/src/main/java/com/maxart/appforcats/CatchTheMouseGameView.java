@@ -4,29 +4,28 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Point;
+import android.util.Log;
 import android.view.View;
 
 public class CatchTheMouseGameView extends View {
 
-    Bitmap background;
-    Point offset;
+    Bitmap backgroundImage;
 
     public CatchTheMouseGameView(Context context) {
         super(context);
 
-        background = BitmapFactory.decodeResource(getResources(), R.drawable.cheese_background);
+        backgroundImage = BitmapFactory.decodeResource(getResources(), R.drawable.cheese_background);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        scaleCenterCrop(background, getWidth(), getHeight());
-        canvas.drawBitmap(background, offset.x, offset.y, null);
+        Bitmap scaledBitmap = scaleCenterCrop(backgroundImage, getWidth(), getHeight());
+        canvas.drawBitmap(scaledBitmap, 0, 0, null);
     }
 
-    private void scaleCenterCrop(Bitmap source, int newWidth, int newHeight) {
+    static Bitmap scaleCenterCrop(Bitmap source, int newWidth, int newHeight) {
         int sourceWidth = source.getWidth();
         int sourceHeight = source.getHeight();
 
@@ -40,12 +39,12 @@ public class CatchTheMouseGameView extends View {
         // Now get the size of the source bitmap when scaled
         int scaledWidth = (int)(scale * sourceWidth);
         int scaledHeight = (int)(scale * sourceHeight);
-        background = Bitmap.createScaledBitmap(source, scaledWidth, scaledHeight, true);
+        Bitmap scaled = Bitmap.createScaledBitmap(source, scaledWidth, scaledHeight, true);
 
         // Let's find out the upper left coordinates if the scaled bitmap
         // should be centered in the new size give by the parameters
         int left = (newWidth - scaledWidth) / 2;
         int top = (newHeight - scaledHeight) / 2;
-        offset = new Point(left, top);
+        return Bitmap.createBitmap(scaled, -left, -top, newWidth, newHeight);
     }
 }
