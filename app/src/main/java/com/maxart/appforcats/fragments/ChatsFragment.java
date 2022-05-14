@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,30 +48,32 @@ public class ChatsFragment extends Fragment {
         ChatsAdapter chatsAdapter = new ChatsAdapter(getContext(), R.layout.layout_chat_item, chats_list);
         chats_listView.setAdapter(chatsAdapter);
 
-        /*
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, chats_array);
-        chats_listView.setAdapter(adapter);
+//        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, chats_array);
+//        chats_listView.setAdapter(adapter);
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-                    @Override
-                    public boolean onQueryTextSubmit(String query)
-                    {
-                        if (chats.contains(query)) {
-                            adapter.getFilter().filter(query);
-                        }
-                        else {
-                            Toast.makeText(getContext(), "Not found", Toast.LENGTH_LONG).show();
-                        }
+//        ListAdapter adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, chats);
+//        chats_listView.setAdapter(adapter);
 
-                        return false;
-                    }
-                    @Override
-                    public boolean onQueryTextChange(String newText) {
-                        adapter.getFilter().filter(newText);
-                        return false;
-                    }
-                });
-                */
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//                    @Override
+//                    public boolean onQueryTextSubmit(String query)
+//                    {
+//                        if (chats.contains(query)) {
+//                            adapter.getFilter().filter(query);
+//                        }
+//                        else {
+//                            Toast.makeText(getContext(), "Not found", Toast.LENGTH_LONG).show();
+//                        }
+//
+//                        return false;
+//                    }
+//                    @Override
+//                    public boolean onQueryTextChange(String newText) {
+//                        adapter.getFilter().filter(newText);
+//                        return false;
+//                    }
+//                });
+
 
 
         return v;

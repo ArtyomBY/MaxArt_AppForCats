@@ -17,4 +17,6 @@
     <string name="volume_button_content_description">volume</string>
     <string name="background_button_content_description">background</string>
     <string name="start">Начать</string>
+    <string name="hit_the_mole_title">Стукни крота</string>
+    <string name="mole_speed_title">Скорость появления крота</string>
 </resources>

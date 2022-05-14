@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppForCats">
         <activity
+            android:name=".HitTheMoleActivity"
+            android:exported="false" />
+        <activity
             android:name=".CatchTheMouseActivity"
             android:exported="false" />
         <activity

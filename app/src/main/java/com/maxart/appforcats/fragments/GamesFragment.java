@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.maxart.appforcats.CatchTheMouseActivity;
+import com.maxart.appforcats.HitTheMoleActivity;
 import com.maxart.appforcats.MainActivity;
 import com.maxart.appforcats.R;
 
@@ -50,6 +51,8 @@ public class GamesFragment extends Fragment {
                 MainActivity mainActivity = (MainActivity) requireActivity();
                 switch (((TextView)v).getText().toString()) {
                     case "Стукни крота":
+                        Intent intent = new Intent(requireContext(), HitTheMoleActivity.class);
+                        startActivity(intent);
                         break;
                     case "Поймай мышку":
                         Intent i = new Intent(requireContext(), CatchTheMouseActivity.class);
