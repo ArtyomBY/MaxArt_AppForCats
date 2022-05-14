@@ -8,4 +8,13 @@
     <string name="chats_fragment_title">Чаты</string>
     <string name="games_fragment_title">Игры для котов</string>
     <string name="recommendation_fragment_title">Советы</string>
+    <string name="catch_the_mouse_title">Поймай мышку</string>
+    <string name="game_settings_title">Настройки</string>
+    <string name="mouse_speed_title">Скорость мыши</string>
+    <string name="background_choice_title">Выбрать фон:</string>
+    <string name="sound_choice_title">Выбор звука:</string>
+    <string name="volume_title">Громкость</string>
+    <string name="volume_button_content_description">volume</string>
+    <string name="background_button_content_description">background</string>
+    <string name="start">Начать</string>
 </resources>

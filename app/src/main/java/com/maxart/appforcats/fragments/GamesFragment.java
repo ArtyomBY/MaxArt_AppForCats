@@ -1,6 +1,7 @@
 package com.maxart.appforcats.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.maxart.appforcats.CatchTheMouseActivity;
 import com.maxart.appforcats.MainActivity;
 import com.maxart.appforcats.R;
 
@@ -50,6 +52,8 @@ public class GamesFragment extends Fragment {
                     case "Стукни крота":
                         break;
                     case "Поймай мышку":
+                        Intent i = new Intent(requireContext(), CatchTheMouseActivity.class);
+                        startActivity(i);
                         break;
                     case "Общение с виртуальными котами":
                         mainActivity.replaceFragment(new VirtualCatFragment());

@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CatchTheMouseActivity"
+    android:background="@drawable/cheese_background"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+
+        android:id="@+id/title"
+        android:gravity="center"
+
+        android:text="@string/catch_the_mouse_title"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:shadowColor="@color/black"
+        android:shadowRadius="3"
+        android:shadowDx="3"
+        android:shadowDy="3"
+
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/settings_frame"
+        app:layout_constraintVertical_weight="2"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+
+        android:id="@+id/settings_frame"
+
+        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_weight="8"
+        />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.75"
+        app:layout_constraintDimensionRatio="30:40"
+
+        android:id="@+id/settings_window"
+        android:background="@drawable/game_settings_background"
+
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/settings_frame"
+        app:layout_constraintBottom_toBottomOf="@+id/settings_frame"
+        app:layout_constraintVertical_bias="0.1"
+        />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="@id/settings_window"
+        app:layout_constraintLeft_toLeftOf="@id/settings_window"
+        app:layout_constraintRight_toRightOf="@id/settings_window"
+        app:layout_constraintBottom_toBottomOf="@id/settings_window"
+
+        android:padding="10dp"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+
+            android:id="@+id/game_settings_title"
+            android:text="@string/game_settings_title"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:gravity="center"
+
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/mouse_speed_title"
+            app:layout_constraintVertical_weight="1"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+
+            android:id="@+id/mouse_speed_title"
+            android:text="@string/mouse_speed_title"
+            android:textSize="15sp"
+            android:gravity="bottom"
+
+            app:layout_constraintTop_toBottomOf="@id/game_settings_title"
+            app:layout_constraintBottom_toTopOf="@id/mouse_speed"
+            app:layout_constraintVertical_weight="0.6"
+            />
+
+        <SeekBar
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+
+            android:id="@+id/mouse_speed"
+            android:progress="30"
+
+            app:layout_constraintTop_toBottomOf="@id/mouse_speed_title"
+            app:layout_constraintBottom_toTopOf="@id/background_choice_title"
+            app:layout_constraintVertical_weight="0.8"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+
+            android:id="@+id/background_choice_title"
+            android:text="@string/background_choice_title"
+            android:textSize="15sp"
+            android:gravity="center"
+
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/mouse_speed"
+            app:layout_constraintBottom_toTopOf="@id/sound_choice_title"
+            app:layout_constraintVertical_weight="0.8"
+            />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+
+            android:id="@+id/background_choice_button"
+            android:src="@drawable/ic_image"
+            android:layout_margin="5dp"
+            android:contentDescription="@string/background_button_content_description"
+
+            app:layout_constraintLeft_toRightOf="@id/background_choice_title"
+            app:layout_constraintTop_toTopOf="@id/background_choice_title"
+            app:layout_constraintBottom_toBottomOf="@id/background_choice_title"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+
+            android:id="@+id/sound_choice_title"
+            android:text="@string/sound_choice_title"
+            android:textSize="15sp"
+            android:gravity="center"
+
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/background_choice_title"
+            app:layout_constraintBottom_toTopOf="@id/volume_title"
+            app:layout_constraintVertical_weight="0.8"
+            />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+
+            android:src="@drawable/ic_volume"
+            android:layout_marginVertical="5dp"
+            android:contentDescription="@string/volume_button_content_description"
+
+            app:layout_constraintLeft_toLeftOf="@id/background_choice_button"
+            app:layout_constraintTop_toTopOf="@id/sound_choice_title"
+            app:layout_constraintBottom_toBottomOf="@id/sound_choice_title"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+
+            android:id="@+id/volume_title"
+            android:text="@string/volume_title"
+            android:textSize="15sp"
+            android:gravity="bottom"
+
+            app:layout_constraintTop_toBottomOf="@id/sound_choice_title"
+            app:layout_constraintBottom_toTopOf="@id/volume"
+            app:layout_constraintVertical_weight="0.6"
+            />
+
+        <SeekBar
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+
+            android:id="@+id/volume"
+            android:progress="30"
+            android:thumb="@drawable/ic_volume"
+
+            app:layout_constraintTop_toBottomOf="@id/volume_title"
+            app:layout_constraintBottom_toTopOf="@id/start_button_frame"
+            app:layout_constraintVertical_weight="0.7"
+            />
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+
+            android:id="@+id/start_button_frame"
+
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/volume"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_weight="1.3"
+            />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:id="@+id/start_button"
+            android:text="@string/start"
+            android:textColor="@color/white"
+            android:paddingHorizontal="30dp"
+            android:background="@drawable/start_button_background"
+
+            app:layout_constraintTop_toTopOf="@id/start_button_frame"
+            app:layout_constraintBottom_toBottomOf="@id/start_button_frame"
+            app:layout_constraintLeft_toLeftOf="@id/start_button_frame"
+            app:layout_constraintRight_toRightOf="@id/start_button_frame"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
