@@ -19,7 +19,7 @@ public class HitTheMoleActivity extends AppCompatActivity {
 
         findViewById(R.id.start_button).setOnClickListener(v -> {
             setContentView(new HitTheMoleGameView(this));
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+//            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
             startGame();
         });
     }

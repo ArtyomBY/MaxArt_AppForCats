@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.maxart.appforcats.fragments.ChatsFragment;
@@ -20,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Toast.makeText(this, "Для корректной работы приложения включите интернет", Toast.LENGTH_SHORT).show();
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
