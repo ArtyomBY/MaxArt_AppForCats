@@ -19,4 +19,5 @@
     <string name="start">Начать</string>
     <string name="hit_the_mole_title">Стукни крота</string>
     <string name="mole_speed_title">Скорость появления крота</string>
+    <string name="videos_hint">Нажмите 2 раза для начала просмотра</string>
 </resources>

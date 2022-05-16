@@ -43,6 +43,7 @@ public class VideosFragment extends Fragment {
         List<Video> videos = new ArrayList<>();
         videos.add(new Video("Video 1", "https://media.istockphoto.com/videos/animation-art-looping-graphic-animation-the-rotating-head-of-a-cat-in-video-id1320486503"));
         videos.add(new Video("Video 2", "https://media.istockphoto.com/videos/funny-gray-tabby-cat-is-resting-on-the-blue-sofa-and-yawning-two-up-video-id1288348337"));
+        videos.add(new Video("Video 3", "https://video.ridus.ru/video/12640/video_hd1080p.mp4"));
         list.setAdapter(new VideoAdapter(requireContext(), videos));
 
         return view;
