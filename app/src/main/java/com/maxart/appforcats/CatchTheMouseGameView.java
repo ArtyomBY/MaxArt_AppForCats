@@ -100,8 +100,8 @@ public class CatchTheMouseGameView extends SurfaceView implements SurfaceHolder.
         double progress;
         int speed;
 
-        SurfaceHolder surfaceHolder;
-        Bitmap mouse, background;
+        private final SurfaceHolder surfaceHolder;
+        private Bitmap mouse, background;
         int mouseWidth, mouseHeight;
         MediaPlayer soundPlayer;
 

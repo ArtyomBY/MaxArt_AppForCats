@@ -1,122 +1,140 @@
 package com.maxart.appforcats;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Point;
 import android.graphics.RectF;
+import android.media.MediaPlayer;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import androidx.annotation.NonNull;
 
+import java.util.ArrayList;
+import java.util.List;
+
+@SuppressLint("ViewConstructor")
 public class HitTheMoleGameView extends SurfaceView implements SurfaceHolder.Callback {
 
     private DrawThread drawThread;
+    private final int speed, volume;
 
-    public HitTheMoleGameView(Context context) {
+    public HitTheMoleGameView(Context context, int speed, int volume) {
         super(context);
+        this.speed = speed;
+        this.volume = volume;
         getHolder().addCallback(this);
     }
 
     @Override
     public void surfaceCreated(@NonNull SurfaceHolder surfaceHolder) {
-        drawThread = new DrawThread(getContext(), getHolder());
+        drawThread = new DrawThread(getHolder(), speed, volume);
         drawThread.start();
     }
 
     @Override
-    public void surfaceChanged(@NonNull SurfaceHolder surfaceHolder, int i, int i1, int i2) {
+    public void surfaceChanged(@NonNull SurfaceHolder holder, int format, int width, int height) {
 
     }
 
     @Override
     public void surfaceDestroyed(@NonNull SurfaceHolder surfaceHolder) {
-        drawThread.requestStop();
+        drawThread.running = false;
         boolean retry = true;
         while (retry) {
             try {
                 drawThread.join();
                 retry = false;
-            } catch (InterruptedException e) {
-                //
-            }
+            } catch (InterruptedException ignored) { }
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        drawThread.setTowardPoint((int)event.getX(), (int) event.getY());
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            drawThread.checkClick((int)event.getX(), (int) event.getY());
+            return true;
+        }
+
         return false;
     }
 
-
-
-
     private class DrawThread extends Thread {
 
-        private SurfaceHolder surfaceHolder;
+        private final SurfaceHolder surfaceHolder;
+
+        private final Paint paint = new Paint();
+        private Bitmap background, mole;
+        private final int moleWidth, moleHeight;
+
+        int moleX, moleY;
+        int speed;
+        private static final double SPEED_COEFFICIENT = 1000;
+        int timer = 0;
+        private final double timerMax;
+        private final List<Hole> holes = new ArrayList<>();
+
+        private final MediaPlayer soundPlayer = MediaPlayer.create(getContext(), R.raw.squeak);
 
         private volatile boolean running = true;
-        private Paint paint = new Paint();
-        private Bitmap background, mole;
-        private int towardPointX, towardPointY;
-        private int canvasWidth, canvasHeight;
 
-        public DrawThread(Context context, SurfaceHolder surfaceHolder) {
-
-            canvasWidth = getWidth();
-            canvasHeight = getHeight();
-
-            mole = BitmapFactory.decodeResource(context.getResources(), R.drawable.mole_icon);
-            mole = Bitmap.createScaledBitmap(mole, 200, 150, false);
-            background = BitmapFactory.decodeResource(context.getResources(), R.drawable.game_forest_background);
-            background = Bitmap.createScaledBitmap(background, getWidth(), getHeight(), false);
+        public DrawThread(SurfaceHolder surfaceHolder, int speed, int volume) {
             this.surfaceHolder = surfaceHolder;
+            this.speed = speed;
 
+            int canvasWidth = getWidth();
+            int canvasHeight = getHeight();
+
+            mole = BitmapFactory.decodeResource(getResources(), R.drawable.mole_icon);
+            mole = Bitmap.createScaledBitmap(mole, 200, 150, false);
+            moleWidth = mole.getWidth();
+            moleHeight = mole.getHeight();
+
+            background = BitmapFactory.decodeResource(getResources(), R.drawable.game_forest_background);
+            background = CatchTheMouseGameView.scaleCenterCrop(background, canvasWidth, canvasHeight);
+
+            holes.add(new Hole(canvasWidth / 2, canvasHeight / 2));
+            holes.add(new Hole(canvasWidth / 4, canvasHeight / 4));
+            holes.add(new Hole(canvasWidth / 4, canvasHeight * 3 / 4));
+
+            timerMax = SPEED_COEFFICIENT / speed;
+
+            soundPlayer.setVolume(volume, volume);
         }
 
-        public void setTowardPoint(int x, int y) {
-            towardPointX = x;
-            towardPointY = y;
-        }
-
-        public void requestStop(){
-            running = false;
+        public void checkClick(int x, int y) {
+            int moleCenterX = moleX + moleWidth / 2;
+            int moleCenterY = moleY + moleHeight / 2;
+            int r = Math.min(moleWidth, moleHeight) / 2;
+            if (Math.pow(x - moleCenterX, 2) + Math.pow(y - moleCenterY, 2) < r * r) {
+                timer = (int)timerMax;
+                soundPlayer.start();
+            }
         }
 
         @Override
         public void run() {
-
-            int hole1_x = canvasWidth / 2;
-            int hole1_y = canvasHeight / 2;
-
-            int hole2_x = canvasWidth / 4;
-            int hole2_y = canvasHeight / 4;
-
-            int moleX = hole1_x;
-            int moleY = hole1_y;
+            moveMole();
 
             while (running) {
                 Canvas canvas = surfaceHolder.lockCanvas();
                 if (canvas != null) {
                     try {
-                        canvas.drawBitmap(background, 0, 0, null);
+                        if (timer >= timerMax) {
+                            moveMole();
+                            timer = 0;
+                        }
+                        else {
+                            timer++;
+                        }
 
-                        paint.setStyle(Paint.Style.FILL);
-                        int pColor = Color.parseColor("#D5CD3E");
-                        paint.setColor(pColor);
-                        RectF oval1 = new RectF(hole1_x, hole1_y, hole1_x + 50,hole1_y + 150);
-                        canvas.drawOval(oval1, paint);
-                        RectF oval2 = new RectF(hole2_x,hole2_y, hole2_x + 50,hole2_y + 150);
-                        canvas.drawOval(oval2, paint);
-
-                        //canvas.drawBitmap(mole, moleX, moleY, null);
-
+                        draw(canvas);
                     } finally {
                         surfaceHolder.unlockCanvasAndPost(canvas);
                     }
@@ -124,9 +142,38 @@ public class HitTheMoleGameView extends SurfaceView implements SurfaceHolder.Cal
             }
         }
 
+        void moveMole() {
+            int n = (int)(Math.random() * holes.size());
+            moleX = holes.get(n).x;
+            moleY = holes.get(n).y;
+        }
 
+        private void draw(Canvas canvas) {
+            canvas.drawBitmap(background, 0, 0, null);
 
+            paint.setStyle(Paint.Style.FILL);
+            paint.setColor(Color.parseColor("#D5CD3E"));
 
+            for (Hole hole : holes) {
+                hole.draw(canvas);
+            }
+
+            canvas.drawBitmap(mole, moleX, moleY, null);
+        }
+
+        private class Hole {
+            static final int WIDTH = 50, HEIGHT = 150;
+            int x, y;
+
+            Hole(int x, int y) {
+                this.x = x;
+                this.y = y;
+            }
+
+            void draw(Canvas canvas) {
+                RectF rect = new RectF(x, y, x + WIDTH, y + HEIGHT);
+                canvas.drawOval(rect, paint);
+            }
+        }
     }
-
 }

@@ -1,13 +1,15 @@
 package com.maxart.appforcats;
 
+import android.os.Bundle;
+import android.view.Window;
+import android.widget.SeekBar;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.pm.ActivityInfo;
-import android.os.Bundle;
-import android.view.Window;
-
 public class HitTheMoleActivity extends AppCompatActivity {
+
+    static final int MAX_SPEED = 50;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -16,9 +18,16 @@ public class HitTheMoleActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_hit_the_mole);
 
+        SeekBar speedBar = findViewById(R.id.mole_speed);
+        SeekBar volumeBar = findViewById(R.id.volume);
+        speedBar.setMax(MAX_SPEED);
 
         findViewById(R.id.start_button).setOnClickListener(v -> {
-            setContentView(new HitTheMoleGameView(this));
+            setContentView(new HitTheMoleGameView(
+                    this,
+                    Math.max(1, speedBar.getProgress()),
+                    volumeBar.getProgress()
+            ));
 //            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
             startGame();
         });
