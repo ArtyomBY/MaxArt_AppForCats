@@ -20,6 +20,7 @@ public class CatchTheMouseActivity extends AppCompatActivity {
     private static final int MAX_VOLUME = 100;
 
     Bitmap backgroundImage;
+    CatchTheMouseGameView gameView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,7 +54,7 @@ public class CatchTheMouseActivity extends AppCompatActivity {
         volume.setMax(MAX_VOLUME);
 
         findViewById(R.id.start_button).setOnClickListener(v -> {
-            setContentView(new CatchTheMouseGameView(
+            setContentView(gameView = new CatchTheMouseGameView(
                     this,
                     Math.max(1, speed.getProgress()),
                     volume.getProgress() / (float)MAX_VOLUME
@@ -64,5 +65,11 @@ public class CatchTheMouseActivity extends AppCompatActivity {
 
     private void startGame() {
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        gameView.exit();
+        super.onBackPressed();
     }
 }

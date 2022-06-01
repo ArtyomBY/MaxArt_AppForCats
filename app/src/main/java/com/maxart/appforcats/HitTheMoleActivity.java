@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class HitTheMoleActivity extends AppCompatActivity {
 
     static final int MAX_SPEED = 50;
+    HitTheMoleGameView gameView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -23,7 +24,7 @@ public class HitTheMoleActivity extends AppCompatActivity {
         speedBar.setMax(MAX_SPEED);
 
         findViewById(R.id.start_button).setOnClickListener(v -> {
-            setContentView(new HitTheMoleGameView(
+            setContentView(gameView = new HitTheMoleGameView(
                     this,
                     Math.max(1, speedBar.getProgress()),
                     volumeBar.getProgress()
@@ -35,5 +36,11 @@ public class HitTheMoleActivity extends AppCompatActivity {
 
     private void startGame() {
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        gameView.exit();
+        super.onBackPressed();
     }
 }

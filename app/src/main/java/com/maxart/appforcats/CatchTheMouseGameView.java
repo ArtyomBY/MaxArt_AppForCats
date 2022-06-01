@@ -63,8 +63,13 @@ public class CatchTheMouseGameView extends SurfaceView implements SurfaceHolder.
 
     }
 
+
     @Override
-    public void surfaceDestroyed(@NonNull SurfaceHolder holder) {
+    public void surfaceDestroyed(@NonNull SurfaceHolder surfaceHolder) {
+        exit();
+    }
+
+    public void exit() {
         gameThread.running = false;
         boolean retry = true;
         while (retry) {

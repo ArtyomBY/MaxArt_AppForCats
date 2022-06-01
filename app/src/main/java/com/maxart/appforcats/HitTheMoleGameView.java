@@ -44,6 +44,10 @@ public class HitTheMoleGameView extends SurfaceView implements SurfaceHolder.Cal
 
     @Override
     public void surfaceDestroyed(@NonNull SurfaceHolder surfaceHolder) {
+        exit();
+    }
+
+    public void exit() {
         drawThread.running = false;
         boolean retry = true;
         while (retry) {
