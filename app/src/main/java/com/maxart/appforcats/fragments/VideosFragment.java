@@ -1,23 +1,13 @@
 package com.maxart.appforcats.fragments;
 
-import android.content.ContentResolver;
-import android.content.ContentUris;
 import android.content.Context;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.util.Log;
-import android.util.Size;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.VideoView;
 
@@ -28,7 +18,6 @@ import androidx.fragment.app.Fragment;
 import com.maxart.appforcats.R;
 import com.maxart.appforcats.Video;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,7 +38,7 @@ public class VideosFragment extends Fragment {
         return view;
     }
 
-    private class VideoAdapter extends ArrayAdapter<Video> {
+    private static class VideoAdapter extends ArrayAdapter<Video> {
 
         public VideoAdapter(@NonNull Context context, @NonNull List<Video> objects) {
             super(context, R.layout.layout_video_item, objects);
@@ -100,7 +89,7 @@ public class VideosFragment extends Fragment {
                 }
             }
             catch (IOException e) {
-                Log.e("AAAAAAAAAAA", "getView: ", e);
+                Log.e("A", "getView: ", e);
                 videoView.setBackgroundColor(getResources().getColor(R.color.purple_200));
             }*/
 

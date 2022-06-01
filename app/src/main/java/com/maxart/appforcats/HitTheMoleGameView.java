@@ -102,6 +102,7 @@ public class HitTheMoleGameView extends SurfaceView implements SurfaceHolder.Cal
             holes.add(new Hole(canvasWidth / 2, canvasHeight / 2));
             holes.add(new Hole(canvasWidth / 4, canvasHeight / 4));
             holes.add(new Hole(canvasWidth / 4, canvasHeight * 3 / 4));
+            holes.add(new Hole((int)(canvasWidth / 2 * 1.17), (int)(canvasHeight / 2.5)));
 
             timerMax = SPEED_COEFFICIENT / speed;
 
@@ -143,9 +144,14 @@ public class HitTheMoleGameView extends SurfaceView implements SurfaceHolder.Cal
         }
 
         void moveMole() {
-            int n = (int)(Math.random() * holes.size());
-            moleX = holes.get(n).x;
-            moleY = holes.get(n).y;
+            int newX, newY;
+            do {
+                int n = (int) (Math.random() * holes.size());
+                newX = holes.get(n).x;
+                newY = holes.get(n).y;
+            } while (newX == moleX && newY == moleY);
+            moleX = newX;
+            moleY = newY;
         }
 
         private void draw(Canvas canvas) {
